@@ -6,6 +6,10 @@ namespace Acme\StoreBundle\Document;
 use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
 
 use Doctrine\ODM\MongoDB\Mapping\Annotations\Id;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
+use JMS\Serializer\Annotation\Groups;
+use JMS\Serializer\Annotation\VirtualProperty;
 /**
  * @MongoDB\Document
  */

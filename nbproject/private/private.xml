@@ -5,7 +5,9 @@
         <group>
             <file>file:/D:/xamppNew/htdocs/mtl_project/src/Acme/StoreBundle/Controller/DefaultController.php</file>
             <file>file:/D:/xamppNew/htdocs/mtl_project/src/Acme/StoreBundle/Resources/config/routing.yml</file>
-            <file>file:/D:/xamppNew/htdocs/mtl_project/app/config/security.yml</file>
+            <file>file:/D:/xamppNew/htdocs/mtl_project/app/AppKernel.php</file>
+            <file>file:/D:/xamppNew/htdocs/mtl_project/app/config/config.yml</file>
+            <file>file:/D:/xamppNew/htdocs/mtl_project/src/Acme/AccountBundle/Document/User.php</file>
         </group>
     </open-files>
 </project-private>
