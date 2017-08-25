@@ -3,6 +3,16 @@ rest_api:
     path:     /v1/all-product
     defaults: { _controller: AcmeStoreBundle:RestApi:show }
     name_prefix:  api_
+rest_api_register:
+    type: rest
+    path:     /v1/create-new-product
+    defaults: { _controller: AcmeStoreBundle:RestApi:create }
+    name_prefix:  api_
+rest_api_register:
+    type: rest
+    path:     /v1/register-user
+    defaults: { _controller: AcmeStoreBundle:Registration:register }
+#    name_prefix:  api_
 #rest_api_test:
 #    type: rest
 #    path:     /test-api
