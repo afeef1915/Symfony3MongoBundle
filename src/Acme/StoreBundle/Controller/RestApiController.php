@@ -50,7 +50,7 @@ class RestApiController extends FOSRestController {
         $product = new Product();
         $data = json_decode(file_get_contents('php://input'), true);
         if(empty($data)) {
-            return new View("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
+            return $this->view("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
         }
         $product->setName($data['name']['name']);
         $product->setPrice($data['name']['price']);
@@ -61,7 +61,7 @@ class RestApiController extends FOSRestController {
         $dm->persist($product);
         $dm->flush();
         //die("data saved successfully");
-        return new View("User Added Successfully", Response::HTTP_OK);
+        return  $this->view("User Added Successfully", Response::HTTP_OK);
         //return new Response('Created product id ' . $product->getId());
     }
 
