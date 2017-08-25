@@ -1,0 +1,4 @@
+#app/routing_rest.yml
+Rest_store_bundle : 
+  type : rest
+  resource: "@AcmeStoreBundle/Resources/config/routing_rest.yml"

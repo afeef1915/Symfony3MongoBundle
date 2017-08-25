@@ -1,0 +1,10 @@
+rest_api:
+    type: rest
+    path:     /v1/all-product
+    defaults: { _controller: AcmeStoreBundle:RestApi:show }
+    name_prefix:  api_
+#rest_api_test:
+#    type: rest
+#    path:     /test-api
+#    defaults: { _controller: AcmeStoreBundle:RestApi:getUsers }
+#    name_prefix:  api_
