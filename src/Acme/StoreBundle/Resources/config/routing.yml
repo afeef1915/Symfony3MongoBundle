@@ -16,7 +16,5 @@ acme_store_homepage_update_id:
 acme_store_homepage_deleteby_id:
     path:     /db-delete/{id}
     defaults: { _controller: AcmeStoreBundle:Default:delete }
-acme_store_register_user:
-    path:     /register-user
-    defaults: { _controller: AcmeStoreBundle:Registration:register }
+
 

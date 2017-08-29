@@ -13,6 +13,11 @@ acme_store_login_user:
     path:     /v1/login-user
     defaults: { _controller: AcmeStoreBundle:Login:login }
     name_prefix:  api_
+acme_store_register_user:
+    type: rest
+    path:     /v1/register-user
+    defaults: { _controller: AcmeStoreBundle:Registration:register }
+    name_prefix:  api_
 #rest_api_register:
 #    type: rest
 #    path:     /v1/register-user

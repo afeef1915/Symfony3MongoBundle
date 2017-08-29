@@ -1,0 +1,34 @@
+# src/Acme/AccountBundle/Resources/config/doctrine/User.mongodb.yml
+Acme\StoreBundle\Document\User:
+    fields:
+        id:
+            id:  true
+        email:
+            type: string
+        password:
+            type: string
+        username:
+            type: string
+#        usernameCanonical:
+#            type: string   
+#        emailCanonical:
+#            type: string     
+#        enabled:
+#            type: boolean 
+#        salt:
+#            type: string 
+#        lastLogin:
+#            type: date
+#        confirmationToken:
+#            type: string
+#        passwordRequestedAt:
+#            type: date
+#        roles:
+#            type: string
+       
+
+       
+
+     
+
+    
