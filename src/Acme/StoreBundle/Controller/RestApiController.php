@@ -1,12 +1,13 @@
 <?php
 
 namespace Acme\StoreBundle\Controller;
-
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+//
+//header("Access-Control-Allow-Origin: *");
+//header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Acme\StoreBundle\Document\Product;
+use Acme\StoreBundle\Document\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -47,13 +48,18 @@ class RestApiController extends FOSRestController {
      * @Rest\Post("/user/")
      */
     public function createAction(Request $request) {
-        $product = new Product();
+        $product = new User();
         $data = json_decode(file_get_contents('php://input'), true);
         if(empty($data)) {
             return $this->view("NULL VALUES ARE NOT ALLOWED", Response::HTTP_NOT_ACCEPTABLE);
         }
-        $product->setName($data['name']['name']);
-        $product->setPrice($data['name']['price']);
+       
+         
+
+//        $product->setEmail($data['name']['email']);
+//        $product->setUsername($data['name']['username']);
+//        $product->setPassword($data['name']['password']);
+     
         // $product->setName($data['name']);
         //$product->setPrice($data['price']);
         $dm = $this->get('doctrine_mongodb')->getManager();

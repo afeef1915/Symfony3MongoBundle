@@ -8,6 +8,11 @@ rest_api_register:
     path:     /v1/create-new-product
     defaults: { _controller: AcmeStoreBundle:RestApi:create }
     name_prefix:  api_
+acme_store_login_user:
+    type: rest
+    path:     /v1/login-user
+    defaults: { _controller: AcmeStoreBundle:Login:login }
+    name_prefix:  api_
 #rest_api_register:
 #    type: rest
 #    path:     /v1/register-user

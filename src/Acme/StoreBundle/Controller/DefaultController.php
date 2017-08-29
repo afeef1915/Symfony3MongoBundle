@@ -1,9 +1,9 @@
 <?php
 
 namespace Acme\StoreBundle\Controller;
-
-header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
+//
+//header("Access-Control-Allow-Origin: *");
+//header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Acme\StoreBundle\Document\Product;

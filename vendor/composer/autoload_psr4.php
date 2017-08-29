@@ -43,6 +43,7 @@ return array(
     'Knp\\Bundle\\MenuBundle\\' => array($vendorDir . '/knplabs/knp-menu-bundle'),
     'JMS\\SerializerBundle\\' => array($vendorDir . '/jms/serializer-bundle'),
     'Incenteev\\ParameterHandler\\' => array($vendorDir . '/incenteev/composer-parameter-handler'),
+    'Gesdinet\\JWTRefreshTokenBundle\\' => array($vendorDir . '/gesdinet/jwt-refresh-token-bundle'),
     'FOS\\UserBundle\\' => array($vendorDir . '/friendsofsymfony/user-bundle'),
     'FOS\\RestBundle\\' => array($vendorDir . '/friendsofsymfony/rest-bundle'),
     'Exporter\\' => array($vendorDir . '/sonata-project/exporter/src'),

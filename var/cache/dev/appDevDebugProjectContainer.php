@@ -173,7 +173,6 @@ class appDevDebugProjectContainer extends Container
             'fos_user.security.interactive_login_listener' => 'getFosUser_Security_InteractiveLoginListenerService',
             'fos_user.security.login_manager' => 'getFosUser_Security_LoginManagerService',
             'fos_user.user_manager' => 'getFosUser_UserManagerService',
-            'fos_user.user_provider.username' => 'getFosUser_UserProvider_UsernameService',
             'fos_user.username_form_type' => 'getFosUser_UsernameFormTypeService',
             'fos_user.util.canonical_fields_updater' => 'getFosUser_Util_CanonicalFieldsUpdaterService',
             'fos_user.util.email_canonicalizer' => 'getFosUser_Util_EmailCanonicalizerService',
@@ -186,6 +185,11 @@ class appDevDebugProjectContainer extends Container
             'fragment.renderer.hinclude' => 'getFragment_Renderer_HincludeService',
             'fragment.renderer.inline' => 'getFragment_Renderer_InlineService',
             'fragment.renderer.ssi' => 'getFragment_Renderer_SsiService',
+            'gesdinet.jwtrefreshtoken' => 'getGesdinet_JwtrefreshtokenService',
+            'gesdinet.jwtrefreshtoken.authenticator' => 'getGesdinet_Jwtrefreshtoken_AuthenticatorService',
+            'gesdinet.jwtrefreshtoken.refresh_token_manager' => 'getGesdinet_Jwtrefreshtoken_RefreshTokenManagerService',
+            'gesdinet.jwtrefreshtoken.send_token' => 'getGesdinet_Jwtrefreshtoken_SendTokenService',
+            'gesdinet.jwtrefreshtoken.user_provider' => 'getGesdinet_Jwtrefreshtoken_UserProviderService',
             'http_kernel' => 'getHttpKernelService',
             'jms_serializer' => 'getJmsSerializerService',
             'jms_serializer.accessor_strategy' => 'getJmsSerializer_AccessorStrategyService',
@@ -221,6 +225,18 @@ class appDevDebugProjectContainer extends Container
             'knp_menu.renderer.twig' => 'getKnpMenu_Renderer_TwigService',
             'knp_menu.renderer_provider' => 'getKnpMenu_RendererProviderService',
             'knp_menu.voter.router' => 'getKnpMenu_Voter_RouterService',
+            'lexik\\bundle\\jwtauthenticationbundle\\services\\jwsprovider\\jwsproviderinterface' => 'getLexik_Bundle_Jwtauthenticationbundle_Services_Jwsprovider_JwsproviderinterfaceService',
+            'lexik\\bundle\\jwtauthenticationbundle\\tokenextractor\\tokenextractorinterface' => 'getLexik_Bundle_Jwtauthenticationbundle_Tokenextractor_TokenextractorinterfaceService',
+            'lexik_jwt_authentication.encoder.default' => 'getLexikJwtAuthentication_Encoder_DefaultService',
+            'lexik_jwt_authentication.encoder.lcobucci' => 'getLexikJwtAuthentication_Encoder_LcobucciService',
+            'lexik_jwt_authentication.extractor.authorization_header_extractor' => 'getLexikJwtAuthentication_Extractor_AuthorizationHeaderExtractorService',
+            'lexik_jwt_authentication.extractor.cookie_extractor' => 'getLexikJwtAuthentication_Extractor_CookieExtractorService',
+            'lexik_jwt_authentication.extractor.query_parameter_extractor' => 'getLexikJwtAuthentication_Extractor_QueryParameterExtractorService',
+            'lexik_jwt_authentication.handler.authentication_failure' => 'getLexikJwtAuthentication_Handler_AuthenticationFailureService',
+            'lexik_jwt_authentication.handler.authentication_success' => 'getLexikJwtAuthentication_Handler_AuthenticationSuccessService',
+            'lexik_jwt_authentication.jwt_manager' => 'getLexikJwtAuthentication_JwtManagerService',
+            'lexik_jwt_authentication.key_loader' => 'getLexikJwtAuthentication_KeyLoaderService',
+            'lexik_jwt_authentication.security.guard.jwt_token_authenticator' => 'getLexikJwtAuthentication_Security_Guard_JwtTokenAuthenticatorService',
             'locale_listener' => 'getLocaleListenerService',
             'logger' => 'getLoggerService',
             'monolog.activation_strategy.not_found' => 'getMonolog_ActivationStrategy_NotFoundService',
@@ -493,7 +509,6 @@ class appDevDebugProjectContainer extends Container
             'fos_rest.allowed_methods_loader' => true,
             'fos_rest.request.param_fetcher.reader' => true,
             'fos_rest.serializer.jms_handler_registry' => true,
-            'fos_user.user_provider.username' => true,
             'fos_user.util.canonical_fields_updater' => true,
             'fos_user.util.password_updater' => true,
             'jms_serializer.unserialize_object_constructor' => true,
@@ -529,8 +544,14 @@ class appDevDebugProjectContainer extends Container
             'fos_rest.router' => 'router',
             'fos_rest.templating' => 'templating',
             'fos_user.util.username_canonicalizer' => 'fos_user.util.email_canonicalizer',
+            'gesdinet.jwtrefreshtoken.entity_manager' => 'doctrine.orm.default_entity_manager',
             'jms\\serializer\\arraytransformerinterface' => 'jms_serializer',
             'jms\\serializer\\serializerinterface' => 'jms_serializer',
+            'lexik\\bundle\\jwtauthenticationbundle\\encoder\\jwtencoderinterface' => 'lexik_jwt_authentication.encoder.default',
+            'lexik\\bundle\\jwtauthenticationbundle\\services\\jwttokeninterface' => 'lexik_jwt_authentication.jwt_manager',
+            'lexik\\bundle\\jwtauthenticationbundle\\services\\jwttokenmanagerinterface' => 'lexik_jwt_authentication.jwt_manager',
+            'lexik_jwt_authentication.encoder' => 'lexik_jwt_authentication.encoder.default',
+            'lexik_jwt_authentication.jwt_token_authenticator' => 'lexik_jwt_authentication.security.guard.jwt_token_authenticator',
             'mailer' => 'swiftmailer.mailer.default',
             'session.storage' => 'session.storage.native',
             'sonata.block.cache.handler' => 'sonata.block.cache.handler.default',
@@ -760,7 +781,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getCache_SystemService()
     {
-        return $this->services['cache.system'] = \Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('7HwbTK00Lm', 0, 'd-OndSc0y73ap7UQsOHkIx', (__DIR__.'/pools'), $this->get('monolog.logger.cache', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+        return $this->services['cache.system'] = \Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('7HwbTK00Lm', 0, '7RbbJlEgWIT8TJKSVLfNLK', (__DIR__.'/pools'), $this->get('monolog.logger.cache', ContainerInterface::NULL_ON_INVALID_REFERENCE));
     }
 
     /**
@@ -791,7 +812,7 @@ class appDevDebugProjectContainer extends Container
 
         $c = new \Symfony\Bundle\FrameworkBundle\CacheWarmer\TemplateFinder($a, $b, ($this->targetDirs[3].'\\app/Resources'));
 
-        return $this->services['cache_warmer'] = new \Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerAggregate(array(0 => new \Doctrine\Bundle\MongoDBBundle\CacheWarmer\ProxyCacheWarmer($this), 1 => new \Doctrine\Bundle\MongoDBBundle\CacheWarmer\HydratorCacheWarmer($this), 2 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\TemplatePathsCacheWarmer($c, ${($_ = isset($this->services['templating.locator']) ? $this->services['templating.locator'] : $this->getTemplating_LocatorService()) && false ?: '_'}), 3 => $this->get('kernel.class_cache.cache_warmer'), 4 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\TranslationsCacheWarmer($this->get('translator.default')), 5 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\ValidatorCacheWarmer($this->get('validator.builder'), (__DIR__.'/validation.php'), \Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('KOw2rveptO', 0, 'd-OndSc0y73ap7UQsOHkIx', (__DIR__.'/pools'), $this->get('monolog.logger.cache', ContainerInterface::NULL_ON_INVALID_REFERENCE))), 6 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\RouterCacheWarmer($this->get('router')), 7 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\AnnotationsCacheWarmer(${($_ = isset($this->services['annotations.reader']) ? $this->services['annotations.reader'] : $this->getAnnotations_ReaderService()) && false ?: '_'}, (__DIR__.'/annotations.php'), ${($_ = isset($this->services['cache.annotations']) ? $this->services['cache.annotations'] : $this->getCache_AnnotationsService()) && false ?: '_'}), 8 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\SerializerCacheWarmer(array(0 => new \Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader($this->get('annotation_reader'))), (__DIR__.'/serialization.php'), ${($_ = isset($this->services['cache.serializer']) ? $this->services['cache.serializer'] : $this->getCache_SerializerService()) && false ?: '_'}), 9 => new \Symfony\Bundle\TwigBundle\CacheWarmer\TemplateCacheCacheWarmer($this, $c, array()), 10 => new \Symfony\Bundle\TwigBundle\CacheWarmer\TemplateCacheWarmer($this->get('twig'), new \Symfony\Bundle\TwigBundle\TemplateIterator($a, ($this->targetDirs[3].'\\app'), array())), 11 => new \Symfony\Bridge\Doctrine\CacheWarmer\ProxyCacheWarmer($this->get('doctrine')), 12 => $this->get('sonata.admin.route.cache_warmup'), 13 => ${($_ = isset($this->services['fos_rest.allowed_methods_loader']) ? $this->services['fos_rest.allowed_methods_loader'] : $this->getFosRest_AllowedMethodsLoaderService()) && false ?: '_'}));
+        return $this->services['cache_warmer'] = new \Symfony\Component\HttpKernel\CacheWarmer\CacheWarmerAggregate(array(0 => new \Doctrine\Bundle\MongoDBBundle\CacheWarmer\ProxyCacheWarmer($this), 1 => new \Doctrine\Bundle\MongoDBBundle\CacheWarmer\HydratorCacheWarmer($this), 2 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\TemplatePathsCacheWarmer($c, ${($_ = isset($this->services['templating.locator']) ? $this->services['templating.locator'] : $this->getTemplating_LocatorService()) && false ?: '_'}), 3 => $this->get('kernel.class_cache.cache_warmer'), 4 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\TranslationsCacheWarmer($this->get('translator.default')), 5 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\ValidatorCacheWarmer($this->get('validator.builder'), (__DIR__.'/validation.php'), \Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('KOw2rveptO', 0, '7RbbJlEgWIT8TJKSVLfNLK', (__DIR__.'/pools'), $this->get('monolog.logger.cache', ContainerInterface::NULL_ON_INVALID_REFERENCE))), 6 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\RouterCacheWarmer($this->get('router')), 7 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\AnnotationsCacheWarmer(${($_ = isset($this->services['annotations.reader']) ? $this->services['annotations.reader'] : $this->getAnnotations_ReaderService()) && false ?: '_'}, (__DIR__.'/annotations.php'), ${($_ = isset($this->services['cache.annotations']) ? $this->services['cache.annotations'] : $this->getCache_AnnotationsService()) && false ?: '_'}), 8 => new \Symfony\Bundle\FrameworkBundle\CacheWarmer\SerializerCacheWarmer(array(0 => new \Symfony\Component\Serializer\Mapping\Loader\AnnotationLoader($this->get('annotation_reader'))), (__DIR__.'/serialization.php'), ${($_ = isset($this->services['cache.serializer']) ? $this->services['cache.serializer'] : $this->getCache_SerializerService()) && false ?: '_'}), 9 => new \Symfony\Bundle\TwigBundle\CacheWarmer\TemplateCacheCacheWarmer($this, $c, array()), 10 => new \Symfony\Bundle\TwigBundle\CacheWarmer\TemplateCacheWarmer($this->get('twig'), new \Symfony\Bundle\TwigBundle\TemplateIterator($a, ($this->targetDirs[3].'\\app'), array())), 11 => new \Symfony\Bridge\Doctrine\CacheWarmer\ProxyCacheWarmer($this->get('doctrine')), 12 => $this->get('sonata.admin.route.cache_warmup'), 13 => ${($_ = isset($this->services['fos_rest.allowed_methods_loader']) ? $this->services['fos_rest.allowed_methods_loader'] : $this->getFosRest_AllowedMethodsLoaderService()) && false ?: '_'}));
     }
 
     /**
@@ -957,6 +978,7 @@ class appDevDebugProjectContainer extends Container
         $instance->addListenerService('kernel.controller', array(0 => 'fos_rest.param_fetcher_listener', 1 => 'onKernelController'), 5);
         $instance->addListenerService('kernel.response', array(0 => 'fos_rest.allowed_methods_listener', 1 => 'onKernelResponse'), 0);
         $instance->addListenerService('kernel.request', array(0 => 'nelmio_cors.cors_listener', 1 => 'onKernelRequest'), 250);
+        $instance->addListenerService('lexik_jwt_authentication.on_authentication_success', array(0 => 'gesdinet.jwtrefreshtoken.send_token', 1 => 'attachRefreshToken'), 0);
         $instance->addSubscriberService('response_listener', 'Symfony\\Component\\HttpKernel\\EventListener\\ResponseListener');
         $instance->addSubscriberService('streamed_response_listener', 'Symfony\\Component\\HttpKernel\\EventListener\\StreamedResponseListener');
         $instance->addSubscriberService('locale_listener', 'Symfony\\Component\\HttpKernel\\EventListener\\LocaleListener');
@@ -1077,22 +1099,25 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getDoctrine_Orm_DefaultEntityManagerService($lazyLoad = true)
     {
-        $a = new \Doctrine\ORM\Configuration();
-        $a->setEntityNamespaces(array());
-        $a->setMetadataCacheImpl($this->get('doctrine_cache.providers.doctrine.orm.default_metadata_cache'));
-        $a->setQueryCacheImpl($this->get('doctrine_cache.providers.doctrine.orm.default_query_cache'));
-        $a->setResultCacheImpl($this->get('doctrine_cache.providers.doctrine.orm.default_result_cache'));
-        $a->setMetadataDriverImpl(new \Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain());
-        $a->setProxyDir((__DIR__.'/doctrine/orm/Proxies'));
-        $a->setProxyNamespace('Proxies');
-        $a->setAutoGenerateProxyClasses(true);
-        $a->setClassMetadataFactoryName('Doctrine\\ORM\\Mapping\\ClassMetadataFactory');
-        $a->setDefaultRepositoryClassName('Doctrine\\ORM\\EntityRepository');
-        $a->setNamingStrategy(new \Doctrine\ORM\Mapping\UnderscoreNamingStrategy());
-        $a->setQuoteStrategy(new \Doctrine\ORM\Mapping\DefaultQuoteStrategy());
-        $a->setEntityListenerResolver($this->get('doctrine.orm.default_entity_listener_resolver'));
+        $a = new \Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain();
+        $a->addDriver(new \Doctrine\ORM\Mapping\Driver\AnnotationDriver($this->get('annotation_reader'), array(0 => ($this->targetDirs[3].'\\vendor\\gesdinet\\jwt-refresh-token-bundle\\Entity'))), 'Gesdinet\\JWTRefreshTokenBundle\\Entity');
 
-        $this->services['doctrine.orm.default_entity_manager'] = $instance = \Doctrine\ORM\EntityManager::create($this->get('doctrine.dbal.default_connection'), $a);
+        $b = new \Doctrine\ORM\Configuration();
+        $b->setEntityNamespaces(array('GesdinetJWTRefreshTokenBundle' => 'Gesdinet\\JWTRefreshTokenBundle\\Entity'));
+        $b->setMetadataCacheImpl($this->get('doctrine_cache.providers.doctrine.orm.default_metadata_cache'));
+        $b->setQueryCacheImpl($this->get('doctrine_cache.providers.doctrine.orm.default_query_cache'));
+        $b->setResultCacheImpl($this->get('doctrine_cache.providers.doctrine.orm.default_result_cache'));
+        $b->setMetadataDriverImpl($a);
+        $b->setProxyDir((__DIR__.'/doctrine/orm/Proxies'));
+        $b->setProxyNamespace('Proxies');
+        $b->setAutoGenerateProxyClasses(true);
+        $b->setClassMetadataFactoryName('Doctrine\\ORM\\Mapping\\ClassMetadataFactory');
+        $b->setDefaultRepositoryClassName('Doctrine\\ORM\\EntityRepository');
+        $b->setNamingStrategy(new \Doctrine\ORM\Mapping\UnderscoreNamingStrategy());
+        $b->setQuoteStrategy(new \Doctrine\ORM\Mapping\DefaultQuoteStrategy());
+        $b->setEntityListenerResolver($this->get('doctrine.orm.default_entity_listener_resolver'));
+
+        $this->services['doctrine.orm.default_entity_manager'] = $instance = \Doctrine\ORM\EntityManager::create($this->get('doctrine.dbal.default_connection'), $b);
 
         $this->get('doctrine.orm.default_manager_configurator')->configure($instance);
 
@@ -2743,6 +2768,71 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
+     * Gets the 'gesdinet.jwtrefreshtoken' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gesdinet\JWTRefreshTokenBundle\Service\RefreshToken A Gesdinet\JWTRefreshTokenBundle\Service\RefreshToken instance
+     */
+    protected function getGesdinet_JwtrefreshtokenService()
+    {
+        return $this->services['gesdinet.jwtrefreshtoken'] = new \Gesdinet\JWTRefreshTokenBundle\Service\RefreshToken($this->get('gesdinet.jwtrefreshtoken.authenticator'), $this->get('gesdinet.jwtrefreshtoken.user_provider'), $this->get('lexik_jwt_authentication.handler.authentication_success'), $this->get('lexik_jwt_authentication.handler.authentication_failure'), $this->get('gesdinet.jwtrefreshtoken.refresh_token_manager'), '2592000', 'api', false);
+    }
+
+    /**
+     * Gets the 'gesdinet.jwtrefreshtoken.authenticator' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gesdinet\JWTRefreshTokenBundle\Security\Authenticator\RefreshTokenAuthenticator A Gesdinet\JWTRefreshTokenBundle\Security\Authenticator\RefreshTokenAuthenticator instance
+     */
+    protected function getGesdinet_Jwtrefreshtoken_AuthenticatorService()
+    {
+        return $this->services['gesdinet.jwtrefreshtoken.authenticator'] = new \Gesdinet\JWTRefreshTokenBundle\Security\Authenticator\RefreshTokenAuthenticator();
+    }
+
+    /**
+     * Gets the 'gesdinet.jwtrefreshtoken.refresh_token_manager' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gesdinet\JWTRefreshTokenBundle\Doctrine\RefreshTokenManager A Gesdinet\JWTRefreshTokenBundle\Doctrine\RefreshTokenManager instance
+     */
+    protected function getGesdinet_Jwtrefreshtoken_RefreshTokenManagerService()
+    {
+        return $this->services['gesdinet.jwtrefreshtoken.refresh_token_manager'] = new \Gesdinet\JWTRefreshTokenBundle\Doctrine\RefreshTokenManager($this->get('doctrine.orm.default_entity_manager'), 'Gesdinet\\JWTRefreshTokenBundle\\Entity\\RefreshToken');
+    }
+
+    /**
+     * Gets the 'gesdinet.jwtrefreshtoken.send_token' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gesdinet\JWTRefreshTokenBundle\EventListener\AttachRefreshTokenOnSuccessListener A Gesdinet\JWTRefreshTokenBundle\EventListener\AttachRefreshTokenOnSuccessListener instance
+     */
+    protected function getGesdinet_Jwtrefreshtoken_SendTokenService()
+    {
+        return $this->services['gesdinet.jwtrefreshtoken.send_token'] = new \Gesdinet\JWTRefreshTokenBundle\EventListener\AttachRefreshTokenOnSuccessListener($this->get('gesdinet.jwtrefreshtoken.refresh_token_manager'), '2592000', $this->get('validator'), $this->get('request_stack'));
+    }
+
+    /**
+     * Gets the 'gesdinet.jwtrefreshtoken.user_provider' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Gesdinet\JWTRefreshTokenBundle\Security\Provider\RefreshTokenProvider A Gesdinet\JWTRefreshTokenBundle\Security\Provider\RefreshTokenProvider instance
+     */
+    protected function getGesdinet_Jwtrefreshtoken_UserProviderService()
+    {
+        return $this->services['gesdinet.jwtrefreshtoken.user_provider'] = new \Gesdinet\JWTRefreshTokenBundle\Security\Provider\RefreshTokenProvider($this->get('gesdinet.jwtrefreshtoken.refresh_token_manager'));
+    }
+
+    /**
      * Gets the 'http_kernel' service.
      *
      * This service is shared.
@@ -3228,6 +3318,166 @@ class appDevDebugProjectContainer extends Container
     protected function getKnpMenu_Voter_RouterService()
     {
         return $this->services['knp_menu.voter.router'] = new \Knp\Menu\Matcher\Voter\RouteVoter();
+    }
+
+    /**
+     * Gets the 'lexik\bundle\jwtauthenticationbundle\services\jwsprovider\jwsproviderinterface' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Lexik\Bundle\JWTAuthenticationBundle\Services\JWSProvider\DefaultJWSProvider A Lexik\Bundle\JWTAuthenticationBundle\Services\JWSProvider\DefaultJWSProvider instance
+     */
+    protected function getLexik_Bundle_Jwtauthenticationbundle_Services_Jwsprovider_JwsproviderinterfaceService()
+    {
+        return $this->services['lexik\bundle\jwtauthenticationbundle\services\jwsprovider\jwsproviderinterface'] = new \Lexik\Bundle\JWTAuthenticationBundle\Services\JWSProvider\DefaultJWSProvider($this->get('lexik_jwt_authentication.key_loader'), 'openssl', 'RS256', 3600);
+    }
+
+    /**
+     * Gets the 'lexik\bundle\jwtauthenticationbundle\tokenextractor\tokenextractorinterface' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\ChainTokenExtractor A Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\ChainTokenExtractor instance
+     */
+    protected function getLexik_Bundle_Jwtauthenticationbundle_Tokenextractor_TokenextractorinterfaceService()
+    {
+        return $this->services['lexik\bundle\jwtauthenticationbundle\tokenextractor\tokenextractorinterface'] = new \Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\ChainTokenExtractor(array(0 => $this->get('lexik_jwt_authentication.extractor.authorization_header_extractor')));
+    }
+
+    /**
+     * Gets the 'lexik_jwt_authentication.encoder.default' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Lexik\Bundle\JWTAuthenticationBundle\Encoder\DefaultEncoder A Lexik\Bundle\JWTAuthenticationBundle\Encoder\DefaultEncoder instance
+     */
+    protected function getLexikJwtAuthentication_Encoder_DefaultService()
+    {
+        return $this->services['lexik_jwt_authentication.encoder.default'] = new \Lexik\Bundle\JWTAuthenticationBundle\Encoder\DefaultEncoder($this->get('lexik\bundle\jwtauthenticationbundle\services\jwsprovider\jwsproviderinterface'));
+    }
+
+    /**
+     * Gets the 'lexik_jwt_authentication.encoder.lcobucci' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Lexik\Bundle\JWTAuthenticationBundle\Encoder\DefaultEncoder A Lexik\Bundle\JWTAuthenticationBundle\Encoder\DefaultEncoder instance
+     */
+    protected function getLexikJwtAuthentication_Encoder_LcobucciService()
+    {
+        return $this->services['lexik_jwt_authentication.encoder.lcobucci'] = new \Lexik\Bundle\JWTAuthenticationBundle\Encoder\DefaultEncoder(new \Lexik\Bundle\JWTAuthenticationBundle\Services\JWSProvider\LcobucciJWSProvider(new \Lexik\Bundle\JWTAuthenticationBundle\Services\KeyLoader\RawKeyLoader(NULL, NULL, ''), 'openssl', 'RS256', 3600));
+    }
+
+    /**
+     * Gets the 'lexik_jwt_authentication.extractor.authorization_header_extractor' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\AuthorizationHeaderTokenExtractor A Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\AuthorizationHeaderTokenExtractor instance
+     */
+    protected function getLexikJwtAuthentication_Extractor_AuthorizationHeaderExtractorService()
+    {
+        return $this->services['lexik_jwt_authentication.extractor.authorization_header_extractor'] = new \Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\AuthorizationHeaderTokenExtractor('Bearer', 'Authorization');
+    }
+
+    /**
+     * Gets the 'lexik_jwt_authentication.extractor.cookie_extractor' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\CookieTokenExtractor A Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\CookieTokenExtractor instance
+     */
+    protected function getLexikJwtAuthentication_Extractor_CookieExtractorService()
+    {
+        return $this->services['lexik_jwt_authentication.extractor.cookie_extractor'] = new \Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\CookieTokenExtractor('');
+    }
+
+    /**
+     * Gets the 'lexik_jwt_authentication.extractor.query_parameter_extractor' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\QueryParameterTokenExtractor A Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\QueryParameterTokenExtractor instance
+     */
+    protected function getLexikJwtAuthentication_Extractor_QueryParameterExtractorService()
+    {
+        return $this->services['lexik_jwt_authentication.extractor.query_parameter_extractor'] = new \Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\QueryParameterTokenExtractor('');
+    }
+
+    /**
+     * Gets the 'lexik_jwt_authentication.handler.authentication_failure' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationFailureHandler A Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationFailureHandler instance
+     */
+    protected function getLexikJwtAuthentication_Handler_AuthenticationFailureService()
+    {
+        return $this->services['lexik_jwt_authentication.handler.authentication_failure'] = new \Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationFailureHandler($this->get('debug.event_dispatcher'));
+    }
+
+    /**
+     * Gets the 'lexik_jwt_authentication.handler.authentication_success' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationSuccessHandler A Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationSuccessHandler instance
+     */
+    protected function getLexikJwtAuthentication_Handler_AuthenticationSuccessService()
+    {
+        return $this->services['lexik_jwt_authentication.handler.authentication_success'] = new \Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationSuccessHandler($this->get('lexik_jwt_authentication.jwt_manager'), $this->get('debug.event_dispatcher'));
+    }
+
+    /**
+     * Gets the 'lexik_jwt_authentication.jwt_manager' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManager A Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManager instance
+     */
+    protected function getLexikJwtAuthentication_JwtManagerService()
+    {
+        $this->services['lexik_jwt_authentication.jwt_manager'] = $instance = new \Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManager($this->get('lexik_jwt_authentication.encoder.default'), $this->get('debug.event_dispatcher'));
+
+        $instance->setUserIdentityField('username');
+
+        return $instance;
+    }
+
+    /**
+     * Gets the 'lexik_jwt_authentication.key_loader' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Lexik\Bundle\JWTAuthenticationBundle\Services\KeyLoader\OpenSSLKeyLoader A Lexik\Bundle\JWTAuthenticationBundle\Services\KeyLoader\OpenSSLKeyLoader instance
+     */
+    protected function getLexikJwtAuthentication_KeyLoaderService()
+    {
+        return $this->services['lexik_jwt_authentication.key_loader'] = new \Lexik\Bundle\JWTAuthenticationBundle\Services\KeyLoader\OpenSSLKeyLoader(NULL, NULL, '');
+    }
+
+    /**
+     * Gets the 'lexik_jwt_authentication.security.guard.jwt_token_authenticator' service.
+     *
+     * This service is shared.
+     * This method always returns the same instance of the service.
+     *
+     * @return \Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator A Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator instance
+     */
+    protected function getLexikJwtAuthentication_Security_Guard_JwtTokenAuthenticatorService()
+    {
+        return $this->services['lexik_jwt_authentication.security.guard.jwt_token_authenticator'] = new \Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator($this->get('lexik_jwt_authentication.jwt_manager'), $this->get('debug.event_dispatcher'), $this->get('lexik\bundle\jwtauthenticationbundle\tokenextractor\tokenextractorinterface'));
     }
 
     /**
@@ -3775,7 +4025,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_EncoderFactoryService()
     {
-        return $this->services['security.encoder_factory'] = new \Symfony\Component\Security\Core\Encoder\EncoderFactory(array('FOS\\UserBundle\\Model\\UserInterface' => array('class' => 'Symfony\\Component\\Security\\Core\\Encoder\\BCryptPasswordEncoder', 'arguments' => array(0 => 13))));
+        return $this->services['security.encoder_factory'] = new \Symfony\Component\Security\Core\Encoder\EncoderFactory(array('FOS\\UserBundle\\Model\\UserInterface' => array('class' => 'Symfony\\Component\\Security\\Core\\Encoder\\BCryptPasswordEncoder', 'arguments' => array(0 => 13)), 'Acme\\StoreBundle\\Document\\User' => array('class' => 'Symfony\\Component\\Security\\Core\\Encoder\\BCryptPasswordEncoder', 'arguments' => array(0 => 13))));
     }
 
     /**
@@ -3802,28 +4052,23 @@ class appDevDebugProjectContainer extends Container
     protected function getSecurity_Firewall_Map_Context_MainService()
     {
         $a = $this->get('monolog.logger.security', ContainerInterface::NULL_ON_INVALID_REFERENCE);
-        $b = $this->get('security.token_storage');
-        $c = $this->get('debug.event_dispatcher', ContainerInterface::NULL_ON_INVALID_REFERENCE);
-        $d = ${($_ = isset($this->services['security.authentication.trust_resolver']) ? $this->services['security.authentication.trust_resolver'] : $this->getSecurity_Authentication_TrustResolverService()) && false ?: '_'};
-        $e = $this->get('router', ContainerInterface::NULL_ON_INVALID_REFERENCE);
-        $f = $this->get('http_kernel');
-        $g = ${($_ = isset($this->services['security.authentication.manager']) ? $this->services['security.authentication.manager'] : $this->getSecurity_Authentication_ManagerService()) && false ?: '_'};
+        $b = $this->get('router', ContainerInterface::NULL_ON_INVALID_REFERENCE);
+        $c = $this->get('security.token_storage');
+        $d = $this->get('http_kernel');
+        $e = ${($_ = isset($this->services['security.authentication.manager']) ? $this->services['security.authentication.manager'] : $this->getSecurity_Authentication_ManagerService()) && false ?: '_'};
 
-        $h = new \Symfony\Component\Security\Http\AccessMap();
+        $f = new \Symfony\Component\Security\Http\AccessMap();
 
-        $i = new \Symfony\Component\Security\Http\HttpUtils($e, $e);
+        $g = new \Symfony\Component\Security\Http\HttpUtils($b, $b);
 
-        $j = new \Symfony\Component\Security\Http\Firewall\LogoutListener($b, $i, new \Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler($i, '/'), array('csrf_parameter' => '_csrf_token', 'csrf_token_id' => 'logout', 'logout_path' => '/logout'));
-        $j->addHandler(new \Symfony\Component\Security\Http\Logout\SessionLogoutHandler());
+        $h = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($g, array());
+        $h->setOptions(array('always_use_default_target_path' => false, 'default_target_path' => '/', 'login_path' => '/login', 'target_path_parameter' => '_target_path', 'use_referer' => false));
+        $h->setProviderKey('main');
 
-        $k = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationSuccessHandler($i, array());
-        $k->setOptions(array('always_use_default_target_path' => false, 'default_target_path' => '/', 'login_path' => '/login', 'target_path_parameter' => '_target_path', 'use_referer' => false));
-        $k->setProviderKey('main');
+        $i = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($d, $g, array(), $a);
+        $i->setOptions(array('login_path' => '/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'));
 
-        $l = new \Symfony\Component\Security\Http\Authentication\DefaultAuthenticationFailureHandler($f, $i, array(), $a);
-        $l->setOptions(array('login_path' => '/login', 'failure_path' => NULL, 'failure_forward' => false, 'failure_path_parameter' => '_failure_path'));
-
-        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($h, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\ContextListener($b, array(0 => ${($_ = isset($this->services['fos_user.user_provider.username']) ? $this->services['fos_user.user_provider.username'] : $this->getFosUser_UserProvider_UsernameService()) && false ?: '_'}), 'main', $a, $c, $d), 2 => $j, 3 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($b, $g, ${($_ = isset($this->services['security.authentication.session_strategy']) ? $this->services['security.authentication.session_strategy'] : $this->getSecurity_Authentication_SessionStrategyService()) && false ?: '_'}, $i, 'main', $k, $l, array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'csrf_token_id' => 'authenticate', 'post_only' => true), $a, $c, $this->get('security.csrf.token_manager')), 4 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($b, '59a0207793f896.76503792', $a, $g), 5 => new \Symfony\Component\Security\Http\Firewall\AccessListener($b, ${($_ = isset($this->services['debug.security.access.decision_manager']) ? $this->services['debug.security.access.decision_manager'] : $this->getDebug_Security_Access_DecisionManagerService()) && false ?: '_'}, $h, $g)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($b, $d, $i, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($f, $i, '/login', false), NULL, NULL, $a, false), new \Symfony\Bundle\SecurityBundle\Security\FirewallConfig('main', 'security.user_checker', 'security.request_matcher.a64d671f18e5575531d76c1d1154fdc4476cb8a79c02ed7a3469178c6d7b96b5ed4e60db', true, false, 'fos_user.user_provider.username', 'main', 'security.authentication.form_entry_point.main', NULL, NULL, array(0 => 'logout', 1 => 'form_login', 2 => 'anonymous')));
+        return $this->services['security.firewall.map.context.main'] = new \Symfony\Bundle\SecurityBundle\Security\FirewallContext(array(0 => new \Symfony\Component\Security\Http\Firewall\ChannelListener($f, new \Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint(80, 443), $a), 1 => new \Symfony\Component\Security\Http\Firewall\LogoutListener($c, $g, new \Symfony\Component\Security\Http\Logout\DefaultLogoutSuccessHandler($g, '/'), array('csrf_parameter' => '_csrf_token', 'csrf_token_id' => 'logout', 'logout_path' => '/logout')), 2 => new \Symfony\Component\Security\Http\Firewall\UsernamePasswordFormAuthenticationListener($c, $e, ${($_ = isset($this->services['security.authentication.session_strategy']) ? $this->services['security.authentication.session_strategy'] : $this->getSecurity_Authentication_SessionStrategyService()) && false ?: '_'}, $g, 'main', $h, $i, array('check_path' => '/login_check', 'use_forward' => false, 'require_previous_session' => true, 'username_parameter' => '_username', 'password_parameter' => '_password', 'csrf_parameter' => '_csrf_token', 'csrf_token_id' => 'authenticate', 'post_only' => true), $a, $this->get('debug.event_dispatcher', ContainerInterface::NULL_ON_INVALID_REFERENCE), $this->get('security.csrf.token_manager')), 3 => new \Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener($c, '59a55f91e87b12.00788397', $a, $e), 4 => new \Symfony\Component\Security\Http\Firewall\AccessListener($c, ${($_ = isset($this->services['debug.security.access.decision_manager']) ? $this->services['debug.security.access.decision_manager'] : $this->getDebug_Security_Access_DecisionManagerService()) && false ?: '_'}, $f, $e)), new \Symfony\Component\Security\Http\Firewall\ExceptionListener($c, ${($_ = isset($this->services['security.authentication.trust_resolver']) ? $this->services['security.authentication.trust_resolver'] : $this->getSecurity_Authentication_TrustResolverService()) && false ?: '_'}, $g, 'main', new \Symfony\Component\Security\Http\EntryPoint\FormAuthenticationEntryPoint($d, $g, '/login', false), NULL, NULL, $a, true), new \Symfony\Bundle\SecurityBundle\Security\FirewallConfig('main', 'security.user_checker', 'security.request_matcher.a64d671f18e5575531d76c1d1154fdc4476cb8a79c02ed7a3469178c6d7b96b5ed4e60db', true, true, 'security.user.provider.concrete.doctrine_mongodb', NULL, 'security.authentication.form_entry_point.main', NULL, NULL, array(0 => 'logout', 1 => 'form_login', 2 => 'anonymous')));
     }
 
     /**
@@ -6734,7 +6979,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getCache_AnnotationsService()
     {
-        return $this->services['cache.annotations'] = \Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('A-2MaAvTEJ', 0, 'd-OndSc0y73ap7UQsOHkIx', (__DIR__.'/pools'), $this->get('monolog.logger.cache', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+        return $this->services['cache.annotations'] = \Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('A-2MaAvTEJ', 0, '7RbbJlEgWIT8TJKSVLfNLK', (__DIR__.'/pools'), $this->get('monolog.logger.cache', ContainerInterface::NULL_ON_INVALID_REFERENCE));
     }
 
     /**
@@ -6751,7 +6996,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getCache_SerializerService()
     {
-        return $this->services['cache.serializer'] = \Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('627nvXbAWP', 0, 'd-OndSc0y73ap7UQsOHkIx', (__DIR__.'/pools'), $this->get('monolog.logger.cache', ContainerInterface::NULL_ON_INVALID_REFERENCE));
+        return $this->services['cache.serializer'] = \Symfony\Component\Cache\Adapter\AbstractAdapter::createSystemCache('627nvXbAWP', 0, '7RbbJlEgWIT8TJKSVLfNLK', (__DIR__.'/pools'), $this->get('monolog.logger.cache', ContainerInterface::NULL_ON_INVALID_REFERENCE));
     }
 
     /**
@@ -6936,23 +7181,6 @@ class appDevDebugProjectContainer extends Container
     }
 
     /**
-     * Gets the 'fos_user.user_provider.username' service.
-     *
-     * This service is shared.
-     * This method always returns the same instance of the service.
-     *
-     * This service is private.
-     * If you want to be able to request this service from the container directly,
-     * make it public, otherwise you might end up with broken code.
-     *
-     * @return \FOS\UserBundle\Security\UserProvider A FOS\UserBundle\Security\UserProvider instance
-     */
-    protected function getFosUser_UserProvider_UsernameService()
-    {
-        return $this->services['fos_user.user_provider.username'] = new \FOS\UserBundle\Security\UserProvider($this->get('fos_user.user_manager'));
-    }
-
-    /**
      * Gets the 'fos_user.util.canonical_fields_updater' service.
      *
      * This service is shared.
@@ -7053,7 +7281,7 @@ class appDevDebugProjectContainer extends Container
      */
     protected function getSecurity_Authentication_ManagerService()
     {
-        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider(${($_ = isset($this->services['fos_user.user_provider.username']) ? $this->services['fos_user.user_provider.username'] : $this->getFosUser_UserProvider_UsernameService()) && false ?: '_'}, ${($_ = isset($this->services['security.user_checker']) ? $this->services['security.user_checker'] : $this->getSecurity_UserCheckerService()) && false ?: '_'}, 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('59a0207793f896.76503792')), true);
+        $this->services['security.authentication.manager'] = $instance = new \Symfony\Component\Security\Core\Authentication\AuthenticationProviderManager(array(0 => new \Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider(new \FOS\UserBundle\Security\UserProvider($this->get('fos_user.user_manager')), ${($_ = isset($this->services['security.user_checker']) ? $this->services['security.user_checker'] : $this->getSecurity_UserCheckerService()) && false ?: '_'}, 'main', $this->get('security.encoder_factory'), true), 1 => new \Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider('59a55f91e87b12.00788397')), true);
 
         $instance->setEventDispatcher($this->get('debug.event_dispatcher'));
 
@@ -7465,6 +7693,16 @@ class appDevDebugProjectContainer extends Container
                     'path' => ($this->targetDirs[3].'\\vendor\\nelmio\\cors-bundle'),
                     'namespace' => 'Nelmio\\CorsBundle',
                 ),
+                'LexikJWTAuthenticationBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[3].'\\vendor\\lexik\\jwt-authentication-bundle'),
+                    'namespace' => 'Lexik\\Bundle\\JWTAuthenticationBundle',
+                ),
+                'GesdinetJWTRefreshTokenBundle' => array(
+                    'parent' => NULL,
+                    'path' => ($this->targetDirs[3].'\\vendor\\gesdinet\\jwt-refresh-token-bundle'),
+                    'namespace' => 'Gesdinet\\JWTRefreshTokenBundle',
+                ),
                 'DebugBundle' => array(
                     'parent' => NULL,
                     'path' => ($this->targetDirs[3].'\\vendor\\symfony\\symfony\\src\\Symfony\\Bundle\\DebugBundle'),
@@ -7530,6 +7768,8 @@ class appDevDebugProjectContainer extends Container
                 'FOSRestBundle' => 'FOS\\RestBundle\\FOSRestBundle',
                 'JMSSerializerBundle' => 'JMS\\SerializerBundle\\JMSSerializerBundle',
                 'NelmioCorsBundle' => 'Nelmio\\CorsBundle\\NelmioCorsBundle',
+                'LexikJWTAuthenticationBundle' => 'Lexik\\Bundle\\JWTAuthenticationBundle\\LexikJWTAuthenticationBundle',
+                'GesdinetJWTRefreshTokenBundle' => 'Gesdinet\\JWTRefreshTokenBundle\\GesdinetJWTRefreshTokenBundle',
                 'DebugBundle' => 'Symfony\\Bundle\\DebugBundle\\DebugBundle',
                 'WebProfilerBundle' => 'Symfony\\Bundle\\WebProfilerBundle\\WebProfilerBundle',
                 'SensioDistributionBundle' => 'Sensio\\Bundle\\DistributionBundle\\SensioDistributionBundle',
@@ -8229,6 +8469,19 @@ class appDevDebugProjectContainer extends Container
             'nelmio_cors.cors_listener.class' => 'Nelmio\\CorsBundle\\EventListener\\CorsListener',
             'nelmio_cors.options_resolver.class' => 'Nelmio\\CorsBundle\\Options\\Resolver',
             'nelmio_cors.options_provider.config.class' => 'Nelmio\\CorsBundle\\Options\\ConfigProvider',
+            'lexik_jwt_authentication.private_key_path' => NULL,
+            'lexik_jwt_authentication.public_key_path' => NULL,
+            'lexik_jwt_authentication.pass_phrase' => '',
+            'lexik_jwt_authentication.token_ttl' => 3600,
+            'lexik_jwt_authentication.user_identity_field' => 'username',
+            'lexik_jwt_authentication.encoder.signature_algorithm' => 'RS256',
+            'lexik_jwt_authentication.encoder.crypto_engine' => 'openssl',
+            'gesdinet.jwtrefreshtoken.refresh_token.class' => 'Gesdinet\\JWTRefreshTokenBundle\\Entity\\RefreshToken',
+            'gesdinet_jwt_refresh_token.ttl' => '2592000',
+            'gesdinet_jwt_refresh_token.ttl_update' => false,
+            'gesdinet_jwt_refresh_token.security.firewall' => 'api',
+            'gesdinet_jwt_refresh_token.user_provider' => NULL,
+            'gesdinet.jwtrefreshtoken.entity_manager.id' => 'doctrine.orm.entity_manager',
             'web_profiler.debug_toolbar.position' => 'bottom',
             'web_profiler.debug_toolbar.intercept_redirects' => false,
             'web_profiler.debug_toolbar.mode' => 2,

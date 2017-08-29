@@ -30,6 +30,8 @@
       <parameter key="FOSRestBundle">FOS\RestBundle\FOSRestBundle</parameter>
       <parameter key="JMSSerializerBundle">JMS\SerializerBundle\JMSSerializerBundle</parameter>
       <parameter key="NelmioCorsBundle">Nelmio\CorsBundle\NelmioCorsBundle</parameter>
+      <parameter key="LexikJWTAuthenticationBundle">Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle</parameter>
+      <parameter key="GesdinetJWTRefreshTokenBundle">Gesdinet\JWTRefreshTokenBundle\GesdinetJWTRefreshTokenBundle</parameter>
       <parameter key="DebugBundle">Symfony\Bundle\DebugBundle\DebugBundle</parameter>
       <parameter key="WebProfilerBundle">Symfony\Bundle\WebProfilerBundle\WebProfilerBundle</parameter>
       <parameter key="SensioDistributionBundle">Sensio\Bundle\DistributionBundle\SensioDistributionBundle</parameter>
@@ -145,6 +147,16 @@
         <parameter key="parent">null</parameter>
         <parameter key="path">D:\xamppNew\htdocs\mtl_project\vendor\nelmio\cors-bundle</parameter>
         <parameter key="namespace">Nelmio\CorsBundle</parameter>
+      </parameter>
+      <parameter key="LexikJWTAuthenticationBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\xamppNew\htdocs\mtl_project\vendor\lexik\jwt-authentication-bundle</parameter>
+        <parameter key="namespace">Lexik\Bundle\JWTAuthenticationBundle</parameter>
+      </parameter>
+      <parameter key="GesdinetJWTRefreshTokenBundle" type="collection">
+        <parameter key="parent">null</parameter>
+        <parameter key="path">D:\xamppNew\htdocs\mtl_project\vendor\gesdinet\jwt-refresh-token-bundle</parameter>
+        <parameter key="namespace">Gesdinet\JWTRefreshTokenBundle</parameter>
       </parameter>
       <parameter key="DebugBundle" type="collection">
         <parameter key="parent">null</parameter>
@@ -799,6 +811,19 @@
     <parameter key="nelmio_cors.cors_listener.class">Nelmio\CorsBundle\EventListener\CorsListener</parameter>
     <parameter key="nelmio_cors.options_resolver.class">Nelmio\CorsBundle\Options\Resolver</parameter>
     <parameter key="nelmio_cors.options_provider.config.class">Nelmio\CorsBundle\Options\ConfigProvider</parameter>
+    <parameter key="lexik_jwt_authentication.private_key_path">null</parameter>
+    <parameter key="lexik_jwt_authentication.public_key_path">null</parameter>
+    <parameter key="lexik_jwt_authentication.pass_phrase"></parameter>
+    <parameter key="lexik_jwt_authentication.token_ttl">3600</parameter>
+    <parameter key="lexik_jwt_authentication.user_identity_field">username</parameter>
+    <parameter key="lexik_jwt_authentication.encoder.signature_algorithm">RS256</parameter>
+    <parameter key="lexik_jwt_authentication.encoder.crypto_engine">openssl</parameter>
+    <parameter key="gesdinet.jwtrefreshtoken.refresh_token.class">Gesdinet\JWTRefreshTokenBundle\Entity\RefreshToken</parameter>
+    <parameter key="gesdinet_jwt_refresh_token.ttl">2592000</parameter>
+    <parameter key="gesdinet_jwt_refresh_token.ttl_update">false</parameter>
+    <parameter key="gesdinet_jwt_refresh_token.security.firewall">api</parameter>
+    <parameter key="gesdinet_jwt_refresh_token.user_provider">null</parameter>
+    <parameter key="gesdinet.jwtrefreshtoken.entity_manager.id">doctrine.orm.entity_manager</parameter>
     <parameter key="web_profiler.debug_toolbar.position">bottom</parameter>
     <parameter key="web_profiler.debug_toolbar.intercept_redirects">false</parameter>
     <parameter key="web_profiler.debug_toolbar.mode">2</parameter>
@@ -1371,7 +1396,7 @@
                 <tag name="cache.pool" clearer="cache.default_clearer"/>
                 <argument>KOw2rveptO</argument>
                 <argument>0</argument>
-                <argument>d-OndSc0y73ap7UQsOHkIx</argument>
+                <argument>7RbbJlEgWIT8TJKSVLfNLK</argument>
                 <argument>D:\xamppNew\htdocs\mtl_project\var\cache\dev/pools</argument>
                 <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
                 <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -1570,7 +1595,7 @@
       <tag name="cache.pool" clearer="cache.default_clearer"/>
       <argument>7HwbTK00Lm</argument>
       <argument>0</argument>
-      <argument>d-OndSc0y73ap7UQsOHkIx</argument>
+      <argument>7RbbJlEgWIT8TJKSVLfNLK</argument>
       <argument>D:\xamppNew\htdocs\mtl_project\var\cache\dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -1580,7 +1605,7 @@
       <tag name="cache.pool" clearer="cache.default_clearer"/>
       <argument>627nvXbAWP</argument>
       <argument>0</argument>
-      <argument>d-OndSc0y73ap7UQsOHkIx</argument>
+      <argument>7RbbJlEgWIT8TJKSVLfNLK</argument>
       <argument>D:\xamppNew\htdocs\mtl_project\var\cache\dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -1590,7 +1615,7 @@
       <tag name="cache.pool" clearer="cache.default_clearer"/>
       <argument>A-2MaAvTEJ</argument>
       <argument>0</argument>
-      <argument>d-OndSc0y73ap7UQsOHkIx</argument>
+      <argument>7RbbJlEgWIT8TJKSVLfNLK</argument>
       <argument>D:\xamppNew\htdocs\mtl_project\var\cache\dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -2777,6 +2802,14 @@
         </argument>
         <argument>250</argument>
       </call>
+      <call method="addListenerService">
+        <argument>lexik_jwt_authentication.on_authentication_success</argument>
+        <argument type="collection">
+          <argument>gesdinet.jwtrefreshtoken.send_token</argument>
+          <argument>attachRefreshToken</argument>
+        </argument>
+        <argument>0</argument>
+      </call>
       <call method="addSubscriberService">
         <argument>response_listener</argument>
         <argument>Symfony\Component\HttpKernel\EventListener\ResponseListener</argument>
@@ -3218,7 +3251,11 @@
       <argument type="collection">
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\DaoAuthenticationProvider" public="false">
-            <argument type="service" id="fos_user.user_provider.username"/>
+            <argument type="service">
+              <service class="FOS\UserBundle\Security\UserProvider" public="false">
+                <argument type="service" id="fos_user.user_manager"/>
+              </service>
+            </argument>
             <argument type="service" id="security.user_checker"/>
             <argument>main</argument>
             <argument type="service" id="security.encoder_factory"/>
@@ -3227,7 +3264,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>59a0207793f896.76503792</argument>
+            <argument>59a55f91e87b12.00788397</argument>
           </service>
         </argument>
       </argument>
@@ -3358,18 +3395,6 @@
           </service>
         </argument>
         <argument type="service">
-          <service class="Symfony\Component\Security\Http\Firewall\ContextListener" public="false">
-            <argument type="service" id="security.token_storage"/>
-            <argument type="collection">
-              <argument type="service" id="fos_user.user_provider.username"/>
-            </argument>
-            <argument>main</argument>
-            <argument type="service" id="monolog.logger.security" on-invalid="null"/>
-            <argument type="service" id="debug.event_dispatcher" on-invalid="null"/>
-            <argument type="service" id="security.authentication.trust_resolver"/>
-          </service>
-        </argument>
-        <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\LogoutListener" public="false">
             <argument type="service" id="security.token_storage"/>
             <argument type="service">
@@ -3394,11 +3419,6 @@
               <argument key="csrf_token_id">logout</argument>
               <argument key="logout_path">/logout</argument>
             </argument>
-            <call method="addHandler">
-              <argument type="service">
-                <service class="Symfony\Component\Security\Http\Logout\SessionLogoutHandler" public="false"/>
-              </argument>
-            </call>
           </service>
         </argument>
         <argument type="service">
@@ -3476,7 +3496,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.token_storage"/>
-            <argument>59a0207793f896.76503792</argument>
+            <argument>59a55f91e87b12.00788397</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -3520,7 +3540,7 @@
           <argument>null</argument>
           <argument>null</argument>
           <argument type="service" id="monolog.logger.security" on-invalid="null"/>
-          <argument>false</argument>
+          <argument>true</argument>
         </service>
       </argument>
       <argument type="service">
@@ -3529,9 +3549,9 @@
           <argument>security.user_checker</argument>
           <argument>security.request_matcher.a64d671f18e5575531d76c1d1154fdc4476cb8a79c02ed7a3469178c6d7b96b5ed4e60db</argument>
           <argument>true</argument>
-          <argument>false</argument>
-          <argument>fos_user.user_provider.username</argument>
-          <argument>main</argument>
+          <argument>true</argument>
+          <argument>security.user.provider.concrete.doctrine_mongodb</argument>
+          <argument>null</argument>
           <argument>security.authentication.form_entry_point.main</argument>
           <argument>null</argument>
           <argument>null</argument>
@@ -4012,7 +4032,9 @@
       <argument type="service">
         <service class="Doctrine\ORM\Configuration" public="false">
           <call method="setEntityNamespaces">
-            <argument type="collection"/>
+            <argument type="collection">
+              <argument key="GesdinetJWTRefreshTokenBundle">Gesdinet\JWTRefreshTokenBundle\Entity</argument>
+            </argument>
           </call>
           <call method="setMetadataCacheImpl">
             <argument type="service" id="doctrine_cache.providers.doctrine.orm.default_metadata_cache"/>
@@ -4025,7 +4047,19 @@
           </call>
           <call method="setMetadataDriverImpl">
             <argument type="service">
-              <service class="Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain" public="false"/>
+              <service class="Doctrine\Common\Persistence\Mapping\Driver\MappingDriverChain" public="false">
+                <call method="addDriver">
+                  <argument type="service">
+                    <service class="Doctrine\ORM\Mapping\Driver\AnnotationDriver" public="false">
+                      <argument type="service" id="annotation_reader"/>
+                      <argument type="collection">
+                        <argument>D:\xamppNew\htdocs\mtl_project\vendor\gesdinet\jwt-refresh-token-bundle\Entity</argument>
+                      </argument>
+                    </service>
+                  </argument>
+                  <argument>Gesdinet\JWTRefreshTokenBundle\Entity</argument>
+                </call>
+              </service>
             </argument>
           </call>
           <call method="setProxyDir">
@@ -4353,9 +4387,6 @@
       <argument type="service" id="security.authentication.session_strategy"/>
       <argument type="service" id="request_stack"/>
       <argument>null</argument>
-    </service>
-    <service id="fos_user.user_provider.username" class="FOS\UserBundle\Security\UserProvider" public="false">
-      <argument type="service" id="fos_user.user_manager"/>
     </service>
     <service id="fos_user.util.user_manipulator" class="FOS\UserBundle\Util\UserManipulator">
       <argument type="service" id="fos_user.user_manager"/>
@@ -5597,6 +5628,84 @@
         <argument key="forced_allow_origin_value">null</argument>
       </argument>
     </service>
+    <service id="lexik_jwt_authentication.encoder.default" class="Lexik\Bundle\JWTAuthenticationBundle\Encoder\DefaultEncoder">
+      <argument type="service" id="lexik\bundle\jwtauthenticationbundle\services\jwsprovider\jwsproviderinterface"/>
+      <autowiring-type>Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface</autowiring-type>
+    </service>
+    <service id="lexik_jwt_authentication.encoder.lcobucci" class="Lexik\Bundle\JWTAuthenticationBundle\Encoder\DefaultEncoder">
+      <argument type="service">
+        <service class="Lexik\Bundle\JWTAuthenticationBundle\Services\JWSProvider\LcobucciJWSProvider" public="false">
+          <argument type="service">
+            <service class="Lexik\Bundle\JWTAuthenticationBundle\Services\KeyLoader\RawKeyLoader" public="false">
+              <argument>null</argument>
+              <argument>null</argument>
+              <argument></argument>
+            </service>
+          </argument>
+          <argument>openssl</argument>
+          <argument>RS256</argument>
+          <argument>3600</argument>
+        </service>
+      </argument>
+    </service>
+    <service id="lexik_jwt_authentication.jwt_manager" class="Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManager">
+      <argument type="service" id="lexik_jwt_authentication.encoder.default"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+      <call method="setUserIdentityField">
+        <argument>username</argument>
+      </call>
+      <autowiring-type>Lexik\Bundle\JWTAuthenticationBundle\Services\JWTTokenManagerInterface</autowiring-type>
+      <autowiring-type>Lexik\Bundle\JWTAuthenticationBundle\Services\JWTManagerInterface</autowiring-type>
+    </service>
+    <service id="lexik_jwt_authentication.security.guard.jwt_token_authenticator" class="Lexik\Bundle\JWTAuthenticationBundle\Security\Guard\JWTTokenAuthenticator">
+      <argument type="service" id="lexik_jwt_authentication.jwt_manager"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+      <argument type="service" id="lexik\bundle\jwtauthenticationbundle\tokenextractor\tokenextractorinterface"/>
+    </service>
+    <service id="lexik_jwt_authentication.handler.authentication_success" class="Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationSuccessHandler">
+      <tag name="monolog.logger" channel="security"/>
+      <argument type="service" id="lexik_jwt_authentication.jwt_manager"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+    </service>
+    <service id="lexik_jwt_authentication.handler.authentication_failure" class="Lexik\Bundle\JWTAuthenticationBundle\Security\Http\Authentication\AuthenticationFailureHandler">
+      <tag name="monolog.logger" channel="security"/>
+      <argument type="service" id="debug.event_dispatcher"/>
+    </service>
+    <service id="lexik_jwt_authentication.extractor.authorization_header_extractor" class="Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\AuthorizationHeaderTokenExtractor">
+      <argument>Bearer</argument>
+      <argument>Authorization</argument>
+    </service>
+    <service id="lexik_jwt_authentication.extractor.query_parameter_extractor" class="Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\QueryParameterTokenExtractor">
+      <argument></argument>
+    </service>
+    <service id="lexik_jwt_authentication.extractor.cookie_extractor" class="Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\CookieTokenExtractor">
+      <argument></argument>
+    </service>
+    <service id="gesdinet.jwtrefreshtoken.send_token" class="Gesdinet\JWTRefreshTokenBundle\EventListener\AttachRefreshTokenOnSuccessListener">
+      <tag name="kernel.event_listener" event="lexik_jwt_authentication.on_authentication_success" method="attachRefreshToken"/>
+      <argument type="service" id="gesdinet.jwtrefreshtoken.refresh_token_manager"/>
+      <argument>2592000</argument>
+      <argument type="service" id="validator"/>
+      <argument type="service" id="request_stack"/>
+    </service>
+    <service id="gesdinet.jwtrefreshtoken.refresh_token_manager" class="Gesdinet\JWTRefreshTokenBundle\Doctrine\RefreshTokenManager">
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+      <argument>Gesdinet\JWTRefreshTokenBundle\Entity\RefreshToken</argument>
+    </service>
+    <service id="gesdinet.jwtrefreshtoken" class="Gesdinet\JWTRefreshTokenBundle\Service\RefreshToken">
+      <argument type="service" id="gesdinet.jwtrefreshtoken.authenticator"/>
+      <argument type="service" id="gesdinet.jwtrefreshtoken.user_provider"/>
+      <argument type="service" id="lexik_jwt_authentication.handler.authentication_success"/>
+      <argument type="service" id="lexik_jwt_authentication.handler.authentication_failure"/>
+      <argument type="service" id="gesdinet.jwtrefreshtoken.refresh_token_manager"/>
+      <argument>2592000</argument>
+      <argument>api</argument>
+      <argument>false</argument>
+    </service>
+    <service id="gesdinet.jwtrefreshtoken.user_provider" class="Gesdinet\JWTRefreshTokenBundle\Security\Provider\RefreshTokenProvider">
+      <argument type="service" id="gesdinet.jwtrefreshtoken.refresh_token_manager"/>
+    </service>
+    <service id="gesdinet.jwtrefreshtoken.authenticator" class="Gesdinet\JWTRefreshTokenBundle\Security\Authenticator\RefreshTokenAuthenticator"/>
     <service id="data_collector.dump" class="Symfony\Component\HttpKernel\DataCollector\DumpDataCollector">
       <tag name="data_collector" id="dump" template="@Debug/Profiler/dump.html.twig" priority="240"/>
       <argument type="service" id="debug.stopwatch" on-invalid="ignore"/>
@@ -6088,6 +6197,12 @@
             <argument>13</argument>
           </argument>
         </argument>
+        <argument key="Acme\StoreBundle\Document\User" type="collection">
+          <argument key="class">Symfony\Component\Security\Core\Encoder\BCryptPasswordEncoder</argument>
+          <argument key="arguments" type="collection">
+            <argument>13</argument>
+          </argument>
+        </argument>
       </argument>
     </service>
     <service id="security.password_encoder" class="Symfony\Component\Security\Core\Encoder\UserPasswordEncoder">
@@ -6403,6 +6518,24 @@
       <argument type="service">
         <service class="JMS\Serializer\Accessor\DefaultAccessorStrategy" public="false"/>
       </argument>
+    </service>
+    <service id="lexik\bundle\jwtauthenticationbundle\services\jwsprovider\jwsproviderinterface" class="Lexik\Bundle\JWTAuthenticationBundle\Services\JWSProvider\DefaultJWSProvider">
+      <argument type="service" id="lexik_jwt_authentication.key_loader"/>
+      <argument>openssl</argument>
+      <argument>RS256</argument>
+      <argument>3600</argument>
+      <autowiring-type>Lexik\Bundle\JWTAuthenticationBundle\Services\JWSProvider\JWSProviderInterface</autowiring-type>
+    </service>
+    <service id="lexik\bundle\jwtauthenticationbundle\tokenextractor\tokenextractorinterface" class="Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\ChainTokenExtractor">
+      <argument type="collection">
+        <argument type="service" id="lexik_jwt_authentication.extractor.authorization_header_extractor"/>
+      </argument>
+      <autowiring-type>Lexik\Bundle\JWTAuthenticationBundle\TokenExtractor\TokenExtractorInterface</autowiring-type>
+    </service>
+    <service id="lexik_jwt_authentication.key_loader" class="Lexik\Bundle\JWTAuthenticationBundle\Services\KeyLoader\OpenSSLKeyLoader">
+      <argument>null</argument>
+      <argument>null</argument>
+      <argument></argument>
     </service>
     <service id="twig.loader" class="Symfony\Bundle\TwigBundle\Loader\FilesystemLoader">
       <tag name="twig.loader"/>
@@ -6897,6 +7030,12 @@
     <service id="fos_rest.templating" alias="templating"/>
     <service id="jms\serializer\serializerinterface" alias="jms_serializer"/>
     <service id="jms\serializer\arraytransformerinterface" alias="jms_serializer"/>
+    <service id="lexik_jwt_authentication.jwt_token_authenticator" alias="lexik_jwt_authentication.security.guard.jwt_token_authenticator"/>
+    <service id="lexik\bundle\jwtauthenticationbundle\services\jwttokenmanagerinterface" alias="lexik_jwt_authentication.jwt_manager"/>
+    <service id="lexik\bundle\jwtauthenticationbundle\services\jwttokeninterface" alias="lexik_jwt_authentication.jwt_manager"/>
+    <service id="lexik_jwt_authentication.encoder" alias="lexik_jwt_authentication.encoder.default"/>
+    <service id="lexik\bundle\jwtauthenticationbundle\encoder\jwtencoderinterface" alias="lexik_jwt_authentication.encoder.default"/>
     <service id="console.command.sensiolabs_security_command_securitycheckercommand" alias="sensio_distribution.security_checker.command"/>
+    <service id="gesdinet.jwtrefreshtoken.entity_manager" alias="doctrine.orm.default_entity_manager"/>
   </services>
 </container>

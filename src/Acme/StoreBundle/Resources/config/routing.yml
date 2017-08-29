@@ -19,3 +19,4 @@ acme_store_homepage_deleteby_id:
 acme_store_register_user:
     path:     /register-user
     defaults: { _controller: AcmeStoreBundle:Registration:register }
+
