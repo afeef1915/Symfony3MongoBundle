@@ -100,12 +100,17 @@ class RegistrationController extends BaseController {
 //        return $this->setBaseHeaders($response);
 //    }
     public function registerAction(Request $request) {
+
+
+
+
         /** @var \FOS\UserBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->get('fos_user.registration.form.factory');
         /** @var \FOS\UserBundle\Model\UserManagerInterface */
         $userManager = $this->get('fos_user.user_manager');
         /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
+
 
         $user = $userManager->createUser();
         $event = new GetResponseUserEvent($user, $request);
@@ -115,11 +120,16 @@ class RegistrationController extends BaseController {
             return $event->getResponse();
         }
 
-        $form = $formFactory->createForm(array('csrf_protection' => false));
+        $form = $formFactory->createForm(array('csrf_protection' => false, 'validation_groups' => false, 'allow_extra_fields' => true));
         $form->setData($user);
         $this->processForm($request, $form);
+        $string = var_export($this->getErrorMessages($form), true);
+        //var_dump($string);die;
+        //var_dump($form->getErrors());
+
 
         if ($form->isValid()) {
+
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(
                     FOSUserEvents::REGISTRATION_SUCCESS, $event
@@ -129,6 +139,7 @@ class RegistrationController extends BaseController {
 
             $response = new Response($this->serialize('User created.'), Response::HTTP_CREATED);
         } else {
+
             throw new BadRequestHttpException();
         }
 
@@ -175,6 +186,26 @@ class RegistrationController extends BaseController {
         $response->headers->set('Access-Control-Allow-Origin', '*');
 
         return $response;
+    }
+
+    private function getErrorMessages(\Symfony\Component\Form\Form $form) {
+        $errors = array();
+
+        foreach ($form->getErrors() as $key => $error) {
+            if ($form->isRoot()) {
+                $errors['#'][] = $error->getMessage();
+            } else {
+                $errors[] = $error->getMessage();
+            }
+        }
+
+        foreach ($form->all() as $child) {
+            if (!$child->isValid()) {
+                $errors[$child->getName()] = $this->getErrorMessages($child);
+            }
+        }
+
+        return $errors;
     }
 
 }
