@@ -44,9 +44,6 @@ class RestApiController extends FOSRestController {
         return $view;
     }
 
-    /**
-     * @Rest\Post("/user/")
-     */
     public function createAction(Request $request) {
         $product = new User();
         $data = json_decode(file_get_contents('php://input'), true);

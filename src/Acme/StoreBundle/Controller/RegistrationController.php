@@ -100,11 +100,7 @@ class RegistrationController extends BaseController {
 //        return $this->setBaseHeaders($response);
 //    }
     public function registerAction(Request $request) {
-
-
-
-
-        /** @var \FOS\UserBundle\Form\Factory\FactoryInterface */
+         /** @var \FOS\UserBundle\Form\Factory\FactoryInterface */
         $formFactory = $this->get('fos_user.registration.form.factory');
         /** @var \FOS\UserBundle\Model\UserManagerInterface */
         $userManager = $this->get('fos_user.user_manager');
@@ -125,14 +121,14 @@ class RegistrationController extends BaseController {
         $this->processForm($request, $form);
         $string = var_export($this->getErrorMessages($form), true);
         //var_dump($string);die;
-        //var_dump($form->getErrors());
+       // var_dump($form->getErrors());die;
         if ($form->isValid()) {
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(
                     FOSUserEvents::REGISTRATION_SUCCESS, $event
             );
             $userManager->updateUser($user);
-            $response = new Response($this->serialize('User created.',$$request->request->get('username')), Response::HTTP_CREATED);
+            $response = new Response($this->serialize('User created'.$request->request->get('username')), Response::HTTP_CREATED);
         } else {
 
             throw new BadRequestHttpException();

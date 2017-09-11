@@ -48,7 +48,8 @@ class LoginController extends Controller {
     public function loginAction(Request $request) {
 
         $data = json_decode(file_get_contents('php://input'), true);
-
+        
+        
 //        $userName = $request->request->get('username');
 //        $password = $request->request->get('password');
 
