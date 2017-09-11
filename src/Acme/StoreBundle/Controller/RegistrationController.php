@@ -126,18 +126,13 @@ class RegistrationController extends BaseController {
         $string = var_export($this->getErrorMessages($form), true);
         //var_dump($string);die;
         //var_dump($form->getErrors());
-
-
         if ($form->isValid()) {
-
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(
                     FOSUserEvents::REGISTRATION_SUCCESS, $event
             );
-
             $userManager->updateUser($user);
-
-            $response = new Response($this->serialize('User created.'), Response::HTTP_CREATED);
+            $response = new Response($this->serialize('User created.',$$request->request->get('username')), Response::HTTP_CREATED);
         } else {
 
             throw new BadRequestHttpException();

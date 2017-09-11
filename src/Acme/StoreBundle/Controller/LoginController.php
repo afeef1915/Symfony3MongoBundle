@@ -2,7 +2,6 @@
 
 namespace Acme\StoreBundle\Controller;
 
-//
 //header("Access-Control-Allow-Origin: *");
 //header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 
@@ -19,28 +18,88 @@ use Acme\StoreBundle\Document\User;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
-
+use JMS\Serializer\SerializationContext;
 class LoginController extends Controller {
 
+//    public function loginAction(Request $request) {
+//       // print_r($request->request->all());die;
+//        //$data = json_decode(file_get_contents('php://input'), true);
+//       // $userName = $data['name']['username'];
+//        $userName = $request->request->get('username');
+//        //print_r($userName);die;
+//        //$password = $data['name']['password'];
+//         $password = $request->request->get('password');
+//        $user = $this->get('doctrine_mongodb')
+//                ->getRepository('AcmeStoreBundle:User')
+//                ->findOneBy(['username' => $userName]);
+//        if (!$user) {
+//            throw $this->createNotFoundException();
+//        }
+//        $isValid = $this->get('security.password_encoder')
+//                ->isPasswordValid($user, $password);
+//        if (!$isValid) {
+//            throw new BadCredentialsException();
+//        }
+//
+//        $response = new Response(Response::HTTP_OK);
+//
+//        return $this->setBaseHeaders($response);
+//    }
     public function loginAction(Request $request) {
+
         $data = json_decode(file_get_contents('php://input'), true);
-        $userName = $data['name']['username'];
-        $password = $data['name']['password'];
+
+//        $userName = $request->request->get('username');
+//        $password = $request->request->get('password');
+
+        $userName = $data['username'];
+        $password = $data['password'];
+
         $user = $this->get('doctrine_mongodb')
                 ->getRepository('AcmeStoreBundle:User')
                 ->findOneBy(['username' => $userName]);
+
         if (!$user) {
             throw $this->createNotFoundException();
         }
+
         $isValid = $this->get('security.password_encoder')
                 ->isPasswordValid($user, $password);
+
         if (!$isValid) {
             throw new BadCredentialsException();
         }
 
         $response = new Response(Response::HTTP_OK);
-
+        $token = $this->getToken($user);
+        
+        $response = new Response($this->serialize(['token' => $token]), Response::HTTP_OK);
         return $this->setBaseHeaders($response);
+    }
+
+    public function serialize($data) {
+        $context = new SerializationContext();
+        $context->setSerializeNull(true);
+
+        return $this->get('jms_serializer')
+                        ->serialize($data, 'json', $context);
+    }
+
+    public function getToken(User $user) {
+
+        return $this->container->get('lexik_jwt_authentication.encoder')
+                        ->encode([
+                            'username' => $user->getUsername(),
+                            'exp' => $this->getTokenExpiryDateTime(),
+        ]);
+    }
+
+    private function getTokenExpiryDateTime() {
+
+        $tokenTtl = $this->container->getParameter('lexik_jwt_authentication.token_ttl');
+        $now = new \DateTime();
+        $now->add(new \DateInterval('PT' . $tokenTtl . 'S'));
+        return $now->format('U');
     }
 
     private function setBaseHeaders(Response $response) {

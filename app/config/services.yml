@@ -32,3 +32,9 @@ services:
             - App1Bundle:PostAdmin
         calls:
             - [ setTranslationDomain, [AppBundle]]
+    token_authenticator:
+        class: Acme\StoreBundle\Security\TokenAuthenticator
+        arguments: ['@lexik_jwt_authentication.encoder.default', '@doctrine_mongodb']
+#    acme.store.security.guard.jwt_token_authenticator:
+#        parent: lexik_jwt_authentication.security.guard.jwt_token_authenticator
+#        class: AcmeStoreBundle\Security\Guard\JWTAuthenticator

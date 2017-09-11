@@ -10,7 +10,7 @@ rest_api_register:
     name_prefix:  api_
 acme_store_login_user:
     type: rest
-    path:     /v1/login-user
+    path:     /login_check
     defaults: { _controller: AcmeStoreBundle:Login:login }
     name_prefix:  api_
 acme_store_register_user:

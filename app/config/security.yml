@@ -15,23 +15,30 @@ security:
             entity:
                 class: AppBundle\Document\User
                 property: username
+#    api:
+#        pattern:   ^/api
+#        stateless: true
+#        guard:
+#            authenticators:
+#                - lexik_jwt_authentication.jwt_token_authenticator
 
     firewalls:
         main:
             pattern: ^/
-            form_login:
-                provider: fos_userbundle
-                csrf_token_generator: security.csrf.token_manager
+#            form_login:
+#                provider: fos_userbundle
+#                csrf_token_generator: security.csrf.token_manager
                 # if you are using Symfony < 2.8, use the following config instead:
                 # csrf_provider: form.csrf_provider
-
+            
+           
             logout:       true
             anonymous:    true
             stateless: true
-            provider: doctrine_mongodb
-#            guard:
-#                authenticators:
-#                    - 'token_authenticator'
+#            provider: doctrine_mongodb
+            guard:
+                authenticators:
+                    - 'token_authenticator'
     access_control:
 #        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
 #        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }

@@ -137,15 +137,25 @@ fos_rest:
 #gesdinet_jwt_refresh_token:
 #    ttl: 2592000
 #    firewall: api
-nelmio_cors:
-    defaults:
-        allow_credentials: false
-        allow_origin: ['*']
-        allow_headers: ['*']
-        allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
-        max_age: 3600
-        hosts: []
-        origin_regex: false
+#lexik_jwt_authentication:
+#    private_key_path:   '%kernel.root_dir%/../var/jwt/private.pem'
+#    public_key_path:    '%kernel.root_dir%/../var/jwt/public.pem'
+#    pass_phrase:        foobar
+#nelmio_cors:
+#    defaults:
+#        allow_credentials: false
+#        allow_origin: ['*']
+#        allow_headers: ['*']
+#        allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+#        max_age: 3600
+#        hosts: []
+#        origin_regex: false
+        
+#lexik_jwt_authentication:
+#    private_key_path: '%kernel.root_dir%/../var/jwt/private.pem'
+#    public_key_path:  '%kernel.root_dir%/../var/jwt/public.pem'
+#    pass_phrase:      '%jwt_key_pass_phrase%'
+#    token_ttl: 3600
 # Swiftmailer Configuration
 swiftmailer:
     transport: '%mailer_transport%'
@@ -161,3 +171,9 @@ sonata_block:
         # enable the SonataAdminBundle block
         sonata.admin.block.admin_list:
             contexts:   [admin]
+lexik_jwt_authentication:
+    private_key_path: '%kernel.root_dir%/../var/jwt/private.pem'
+    public_key_path:  '%kernel.root_dir%/../var/jwt/public.pem'
+    pass_phrase:      '%jwt_key_pass_phrase%'
+    token_ttl: 3600
+
