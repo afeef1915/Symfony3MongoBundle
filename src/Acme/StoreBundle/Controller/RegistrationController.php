@@ -106,8 +106,32 @@ class RegistrationController extends BaseController {
         $userManager = $this->get('fos_user.user_manager');
         /** @var \Symfony\Component\EventDispatcher\EventDispatcherInterface */
         $dispatcher = $this->get('event_dispatcher');
-
-
+        
+        //Check whether data is null from FORM INPUT
+        if(is_null($request->request->get('username')) || is_null($request->request->get('password'))) {
+            return new Response(
+              'Please verify all your inputs.',
+              Response::HTTP_UNAUTHORIZED,
+              array('Content-type' => 'application/json')
+            );
+           die;
+        }
+        //check  email and username already exist
+          $user = $this->get('doctrine_mongodb')
+                ->getRepository('AcmeStoreBundle:User')
+                ->findOneBy(['username' => $request->request->get('username'),'email' => $request->request->get('email')]);
+              
+           if (!$user) {
+            
+            return new Response(
+              'Email or UserName Already Exists.',
+              Response::HTTP_UNAUTHORIZED,
+              array('Content-type' => 'application/json')
+            );
+           die;
+        }
+        
+        
         $user = $userManager->createUser();
         $event = new GetResponseUserEvent($user, $request);
         $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
@@ -123,12 +147,25 @@ class RegistrationController extends BaseController {
         //var_dump($string);die;
        // var_dump($form->getErrors());die;
         if ($form->isValid()) {
+            
             $event = new FormEvent($form, $request);
             $dispatcher->dispatch(
                     FOSUserEvents::REGISTRATION_SUCCESS, $event
             );
+            
+            //saving all records
+          //  $hash = $this->get('security.password_encoder')->encodePassword($user, $request->request->get('password'));
+            
+            $user->setUsername($request->request->get('username'));
+            $user->setEmail($request->request->get('email'));
+
+            $user->setLastLogin((new \DateTime()));
+            $user->setPlainPassword($request->request->get('password'));
+            $user->setEnabled(true);
+
             $userManager->updateUser($user);
-            $response = new Response($this->serialize('User created'.$request->request->get('username')), Response::HTTP_CREATED);
+           // $userManager->updateUser($user);
+            $response = new Response($this->serialize('User created=>'.$request->request->get('username')), Response::HTTP_CREATED);
         } else {
 
             throw new BadRequestHttpException();
@@ -143,6 +180,7 @@ class RegistrationController extends BaseController {
      */
     private function processForm(Request $request, FormInterface $form) {
         $data = json_decode($request->getContent(), true);
+       
         if ($data === null) {
             throw new BadRequestHttpException();
         }

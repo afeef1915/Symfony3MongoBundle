@@ -19,6 +19,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use JMS\Serializer\SerializationContext;
+use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Controller\Annotations as Rest;
 class LoginController extends Controller {
 
 //    public function loginAction(Request $request) {
@@ -55,20 +57,58 @@ class LoginController extends Controller {
 
         $userName = $data['username'];
         $password = $data['password'];
-
+        
+       if(is_null($userName) || is_null($password)) {
+            return new Response(
+              'Please verify all your inputs.',
+              Response::HTTP_UNAUTHORIZED,
+              array('Content-type' => 'application/json')
+            );
+        }
+        
+//        $user_manager = $this->get('fos_user.user_manager');
+//        $factory = $this->get('security.encoder_factory');
+//
+//        $user = $user_manager->findUserByUsername($userName);
+//        $encoder = $factory->getEncoder($user);
+//        $salt = $user->getSalt();
+//
+//        if($encoder->isPasswordValid($user->getPassword(), $password, $salt)) {
+//            $response = new Response(
+//              'Welcome '. $user->getUsername(),
+//              Response::HTTP_OK,
+//              array('Content-type' => 'application/json')
+//            );
+//        } else {
+//            $response = new Response(
+//              'Username or Password not valid.',
+//              Response::HTTP_UNAUTHORIZED,
+//              array('Content-type' => 'application/json')
+//            );
+//        }
+        
         $user = $this->get('doctrine_mongodb')
                 ->getRepository('AcmeStoreBundle:User')
                 ->findOneBy(['username' => $userName]);
-
+        
         if (!$user) {
+            
             throw $this->createNotFoundException();
         }
-
+       
+     
+    
         $isValid = $this->get('security.password_encoder')
                 ->isPasswordValid($user, $password);
-
-        if (!$isValid) {
-            throw new BadCredentialsException();
+       
+       
+        if ($isValid) {
+            $response = new Response(
+              'Username or Password not valid.',
+              Response::HTTP_UNAUTHORIZED,
+              array('Content-type' => 'application/json')
+            );die;
+           // throw new BadCredentialsException();
         }
 
         $response = new Response(Response::HTTP_OK);

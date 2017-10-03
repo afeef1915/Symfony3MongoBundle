@@ -15,14 +15,12 @@ security:
             entity:
                 class: AppBundle\Document\User
                 property: username
-#    api:
-#        pattern:   ^/api
-#        stateless: true
-#        guard:
-#            authenticators:
-#                - lexik_jwt_authentication.jwt_token_authenticator
+
 
     firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
         main:
             pattern: ^/
 #            form_login:
@@ -35,14 +33,14 @@ security:
             logout:       true
             anonymous:    true
             stateless: true
-#            provider: doctrine_mongodb
+            provider: doctrine_mongodb
             guard:
                 authenticators:
                     - 'token_authenticator'
     access_control:
-#        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-#        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-##        - { path: ^/admin/, role: ROLE_ADMIN }
-#        - { path: ^/admin, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+#        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/admin, role: IS_AUTHENTICATED_ANONYMOUSLY }
        

@@ -793,18 +793,12 @@
     <parameter key="jms_serializer.accessor_strategy.expression.class">JMS\Serializer\Accessor\ExpressionAccessorStrategy</parameter>
     <parameter key="nelmio_cors.map" type="collection"/>
     <parameter key="nelmio_cors.defaults" type="collection">
-      <parameter key="allow_origin">true</parameter>
+      <parameter key="allow_origin" type="collection"/>
       <parameter key="allow_credentials">false</parameter>
-      <parameter key="allow_headers">true</parameter>
+      <parameter key="allow_headers" type="collection"/>
       <parameter key="expose_headers" type="collection"/>
-      <parameter key="allow_methods" type="collection">
-        <parameter>GET</parameter>
-        <parameter>POST</parameter>
-        <parameter>PUT</parameter>
-        <parameter>DELETE</parameter>
-        <parameter>OPTIONS</parameter>
-      </parameter>
-      <parameter key="max_age">3600</parameter>
+      <parameter key="allow_methods" type="collection"/>
+      <parameter key="max_age">0</parameter>
       <parameter key="hosts" type="collection"/>
       <parameter key="origin_regex">false</parameter>
       <parameter key="forced_allow_origin_value">null</parameter>
@@ -1401,7 +1395,7 @@
                 <tag name="cache.pool" clearer="cache.default_clearer"/>
                 <argument>KOw2rveptO</argument>
                 <argument>0</argument>
-                <argument>LhuJVsPG-aZZIKjqksQR-J</argument>
+                <argument>jc7dQC4o4uLMQK30UQO1Vn</argument>
                 <argument>D:\xamppNew\htdocs\mtl_project\var\cache\dev/pools</argument>
                 <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
                 <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -1600,7 +1594,7 @@
       <tag name="cache.pool" clearer="cache.default_clearer"/>
       <argument>7HwbTK00Lm</argument>
       <argument>0</argument>
-      <argument>LhuJVsPG-aZZIKjqksQR-J</argument>
+      <argument>jc7dQC4o4uLMQK30UQO1Vn</argument>
       <argument>D:\xamppNew\htdocs\mtl_project\var\cache\dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -1610,7 +1604,7 @@
       <tag name="cache.pool" clearer="cache.default_clearer"/>
       <argument>627nvXbAWP</argument>
       <argument>0</argument>
-      <argument>LhuJVsPG-aZZIKjqksQR-J</argument>
+      <argument>jc7dQC4o4uLMQK30UQO1Vn</argument>
       <argument>D:\xamppNew\htdocs\mtl_project\var\cache\dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -1620,7 +1614,7 @@
       <tag name="cache.pool" clearer="cache.default_clearer"/>
       <argument>A-2MaAvTEJ</argument>
       <argument>0</argument>
-      <argument>LhuJVsPG-aZZIKjqksQR-J</argument>
+      <argument>jc7dQC4o4uLMQK30UQO1Vn</argument>
       <argument>D:\xamppNew\htdocs\mtl_project\var\cache\dev/pools</argument>
       <argument type="service" id="monolog.logger.cache" on-invalid="ignore"/>
       <factory class="Symfony\Component\Cache\Adapter\AbstractAdapter" method="createSystemCache"/>
@@ -3260,8 +3254,11 @@
               <argument type="service" id="token_authenticator"/>
             </argument>
             <argument type="service">
-              <service class="FOS\UserBundle\Security\UserProvider" public="false">
-                <argument type="service" id="fos_user.user_manager"/>
+              <service class="Symfony\Bridge\Doctrine\Security\User\EntityUserProvider" public="false">
+                <argument type="service" id="doctrine"/>
+                <argument>AppBundle\Document\User</argument>
+                <argument>username</argument>
+                <argument>null</argument>
               </service>
             </argument>
             <argument>main</argument>
@@ -3270,7 +3267,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Core\Authentication\Provider\AnonymousAuthenticationProvider" public="false">
-            <argument>59b68ab4782100.47212508</argument>
+            <argument>59cb8d4e9baa47.87362335</argument>
           </service>
         </argument>
       </argument>
@@ -3305,6 +3302,11 @@
     <service id="security.firewall.map" class="Symfony\Bundle\SecurityBundle\Security\FirewallMap" public="false">
       <argument type="service" id="service_container"/>
       <argument type="collection">
+        <argument key="security.firewall.map.context.dev" type="service">
+          <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+            <argument>^/(_(profiler|wdt)|css|images|js)/</argument>
+          </service>
+        </argument>
         <argument key="security.firewall.map.context.main" type="service">
           <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
             <argument>^/</argument>
@@ -3380,13 +3382,77 @@
         </argument>
       </call>
     </service>
+    <service id="security.firewall.map.context.dev" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext">
+      <argument type="collection"/>
+      <argument>null</argument>
+      <argument type="service">
+        <service class="Symfony\Bundle\SecurityBundle\Security\FirewallConfig" public="false">
+          <argument>dev</argument>
+          <argument>security.user_checker</argument>
+          <argument>security.request_matcher.5314eeb91110adf24b9b678372bb11bbe00e8858c519c088bfb65f525181ad3bf573fd1d</argument>
+          <argument>false</argument>
+          <argument></argument>
+          <argument></argument>
+          <argument></argument>
+          <argument></argument>
+          <argument></argument>
+          <argument></argument>
+          <argument type="collection"/>
+        </service>
+      </argument>
+    </service>
     <service id="security.firewall.map.context.main" class="Symfony\Bundle\SecurityBundle\Security\FirewallContext">
       <argument type="collection">
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\ChannelListener" public="false">
             <tag name="monolog.logger" channel="security"/>
             <argument type="service">
-              <service class="Symfony\Component\Security\Http\AccessMap" public="false"/>
+              <service class="Symfony\Component\Security\Http\AccessMap" public="false">
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/login$</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/register</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/resetting</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/admin</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+              </service>
             </argument>
             <argument type="service">
               <service class="Symfony\Component\Security\Http\EntryPoint\RetryAuthenticationEntryPoint" public="false">
@@ -3426,7 +3492,7 @@
         </argument>
         <argument type="service">
           <service class="Symfony\Component\Security\Guard\Firewall\GuardAuthenticationListener" public="false">
-            <tag name="security.remember_me_aware" id="main" provider="fos_user.user_provider.username"/>
+            <tag name="security.remember_me_aware" id="main" provider="security.user.provider.concrete.doctrine_mongodb"/>
             <argument type="service" id="security.authentication.guard_handler"/>
             <argument type="service" id="security.authentication.manager"/>
             <argument>main</argument>
@@ -3439,7 +3505,7 @@
         <argument type="service">
           <service class="Symfony\Component\Security\Http\Firewall\AnonymousAuthenticationListener" public="false">
             <argument type="service" id="security.token_storage"/>
-            <argument>59b68ab4782100.47212508</argument>
+            <argument>59cb8d4e9baa47.87362335</argument>
             <argument type="service" id="monolog.logger.security" on-invalid="null"/>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -3450,7 +3516,52 @@
             <argument type="service" id="security.token_storage"/>
             <argument type="service" id="debug.security.access.decision_manager"/>
             <argument type="service">
-              <service class="Symfony\Component\Security\Http\AccessMap" public="false"/>
+              <service class="Symfony\Component\Security\Http\AccessMap" public="false">
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/login$</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/register</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/resetting</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+                <call method="add">
+                  <argument type="service">
+                    <service class="Symfony\Component\HttpFoundation\RequestMatcher" public="false">
+                      <argument>^/admin</argument>
+                    </service>
+                  </argument>
+                  <argument type="collection">
+                    <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
+                  </argument>
+                  <argument>null</argument>
+                </call>
+              </service>
             </argument>
             <argument type="service" id="security.authentication.manager"/>
           </service>
@@ -3481,7 +3592,7 @@
           <argument>security.request_matcher.a64d671f18e5575531d76c1d1154fdc4476cb8a79c02ed7a3469178c6d7b96b5ed4e60db</argument>
           <argument>true</argument>
           <argument>true</argument>
-          <argument>fos_user.user_provider.username</argument>
+          <argument>security.user.provider.concrete.doctrine_mongodb</argument>
           <argument>null</argument>
           <argument>token_authenticator</argument>
           <argument>null</argument>
@@ -5546,18 +5657,12 @@
       <tag name="nelmio_cors.options_provider" priority="-1"/>
       <argument type="collection"/>
       <argument type="collection">
-        <argument key="allow_origin">true</argument>
+        <argument key="allow_origin" type="collection"/>
         <argument key="allow_credentials">false</argument>
-        <argument key="allow_headers">true</argument>
+        <argument key="allow_headers" type="collection"/>
         <argument key="expose_headers" type="collection"/>
-        <argument key="allow_methods" type="collection">
-          <argument>GET</argument>
-          <argument>POST</argument>
-          <argument>PUT</argument>
-          <argument>DELETE</argument>
-          <argument>OPTIONS</argument>
-        </argument>
-        <argument key="max_age">3600</argument>
+        <argument key="allow_methods" type="collection"/>
+        <argument key="max_age">0</argument>
         <argument key="hosts" type="collection"/>
         <argument key="origin_regex">false</argument>
         <argument key="forced_allow_origin_value">null</argument>

@@ -20,7 +20,7 @@ use JMS\Serializer\Annotation\Groups;
 use JMS\Serializer\Annotation\VirtualProperty;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Controller\Annotations as Rest;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 class RestApiController extends FOSRestController {
 
     /**
@@ -30,6 +30,8 @@ class RestApiController extends FOSRestController {
      * @Rest\View
      */
     public function showAction() {
+        // $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Unable to access this page!');
+
         $usersQ = $this->get('doctrine_mongodb')
                 ->getRepository('AcmeStoreBundle:Product')
                 ->findAll();
